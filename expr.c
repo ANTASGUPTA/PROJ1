@@ -104,15 +104,9 @@ float eval(struct Expr* e) {
         return eval(e->subexprs.e1) * eval(e->subexprs.e2);
     }
     else if(e->type==DIV){
-        if(denominator == 0.0f)
-            {
-                printf("Divide by zero error.") /*To Handle the Zero divisible Error*/
-            
-                exit(1);  
-            }
-        else{
-            return eval(e->subexprs.e1) / eval(e->subexprs.e2);
-        }
+        
+        return eval(e->subexprs.e1) / eval(e->subexprs.e2);
+        
         
     }
     return 0.0;
