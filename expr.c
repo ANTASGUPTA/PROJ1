@@ -51,21 +51,21 @@ struct Expr *mk_float(float f) {
  * using the above constructors.
  */
 struct Expr *mk_expr1() {
-    /* TODO: Your code here */
+    return mk_plus(mk_float(1),mk_times(mk_float(4),mk_float(5)));
 }
 
 /* This function should create the expr (1 + (7 / 8))
  * using the above constructors.
  */
 struct Expr *mk_expr2() {
-    /* TODO: Your code here */
+    return mk_plus(mk_float(1),mk_div(mk_float(7),mk_float(8)));
 }
 
 /* This function should create the expr ((1 / 3) - (4 / (2 + 3)))
  * using the above constructors.
  */
 struct Expr *mk_expr3() {
-    /* TODO: Your code here */
+    return mk_minus(mk_div(mk_float(1),mk_float(3)),mk_div(mk_float(4),mk_plus(mk_float(2),mk_float(3))));
 }
 
 
@@ -74,7 +74,13 @@ struct Expr *mk_expr3() {
  * with the given AST.
 */
 void free_expr(struct Expr* e) {
-    /* TODO: Your code here */
+    if(!e or e == NULL) 
+        return;
+    if(e->type != FLOAT){
+        free_expr(e->subexprs.e1);
+        free_expr(e->subexprs.e2);
+    }
+    free(e);
 }
 
 /*
@@ -82,9 +88,32 @@ void free_expr(struct Expr* e) {
  * return the floating-point result.
 */
 float eval(struct Expr* e) {
-    /* TODO: Your code here */
+    if(e==NULL){
+        return 0.0;
+    }
+    if(e->type==FLOAT){
+        return e->literal;
+    }
+    else if(e->type==PLUS){
+        return eval(e->subexprs.e1) + eval(e->subexprs.e2);
+    }
+    else if(e->type==MINUS){
+        return eval(e->subexprs.e1) - eval(e->subexprs.e2);
+    }
+    else if(e->type==TIMES){
+        return eval(e->subexprs.e1) * eval(e->subexprs.e2);
+    }
+    else if(e->type==DIV){
+        if(denominator == 0.0f)
+            {
+                printf("Divide by zero error.") /*To Handle the Zero divisible Error*/
+            
+                exit(1);  
+            }
+        else{
+            return eval(e->subexprs.e1) / eval(e->subexprs.e2);
+        }
+        
+    }
+    return 0.0;
 }
-
-
-
-
