@@ -74,7 +74,7 @@ struct Expr *mk_expr3() {
  * with the given AST.
 */
 void free_expr(struct Expr* e) {
-    if(!e or e == NULL) 
+    if(!e || e == NULL) 
         return;
     if(e->type != FLOAT){
         free_expr(e->subexprs.e1);
