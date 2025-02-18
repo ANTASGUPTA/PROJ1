@@ -1,6 +1,6 @@
 #include "expr.h"
-#include "stdlib.h"
-#include "stdio.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 
 struct Expr *mk_plus(struct Expr *e1, struct Expr *e2) {
@@ -106,7 +106,6 @@ float eval(struct Expr* e) {
     else if(e->type==DIV){
         
         return eval(e->subexprs.e1) / eval(e->subexprs.e2);
-        
         
     }
     return 0.0;
